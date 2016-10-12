@@ -14,15 +14,20 @@ import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { Home } from './home';
-import { About } from './about';
-import { NoContent } from './no-content';
-import { XLarge } from './home/x-large';
+import { Home } from './features/home';
+import { About } from './features/about';
+import { NoContent } from './features/no-content';
+import { Login } from "./features/auth/login.component";
+import { XLarge } from './features/home/x-large';
+import { LoggedInGuard } from "./core/auth/is-authenticated.guard";
+import { AuthService } from "./core/auth/auth.service";
 
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
-  AppState
+  AppState,
+  AuthService,
+  LoggedInGuard
 ];
 
 type StoreType = {
@@ -41,7 +46,8 @@ type StoreType = {
     About,
     Home,
     NoContent,
-    XLarge
+    XLarge,
+    Login
   ],
   imports: [ // import Angular's modules
     BrowserModule,
